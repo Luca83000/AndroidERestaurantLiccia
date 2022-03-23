@@ -10,36 +10,39 @@
         android:id="@+id/cauchemarHome"
         android:layout_width="333dp"
         android:layout_height="205dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
         android:clickable="true"
+        android:contentDescription="TODO"
         android:focusable="true"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logo_cauchemar_en_cuisine"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
-        android:id="@+id/DessertText"
+        android:id="@+id/dessertText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
         android:clickable="true"
+        android:focusable="true"
         android:fontFamily="cursive"
-        android:text="Desserts"
+        android:text="@string/text_desserts"
         android:textSize="52sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/PlatText" />
+        app:layout_constraintTop_toBottomOf="@+id/platText" />
 
     <TextView
-        android:id="@+id/EntreeText"
+        android:id="@+id/entreeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="60dp"
         android:clickable="true"
+        android:focusable="true"
         android:fontFamily="cursive"
-        android:text="Entrées"
+        android:text="@string/text_entree"
         android:textSize="52sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/cauchemarHome"
@@ -47,17 +50,18 @@
         app:layout_constraintTop_toBottomOf="@+id/cauchemarHome" />
 
     <TextView
-        android:id="@+id/PlatText"
+        android:id="@+id/platText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="84dp"
         android:clickable="true"
+        android:focusable="true"
         android:fontFamily="cursive"
-        android:text="Plats"
+        android:text="@string/text_plats"
         android:textSize="52sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/EntreeText"
+        app:layout_constraintStart_toEndOf="@+id/entreeText"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/EntreeText" />
+        app:layout_constraintTop_toBottomOf="@+id/entreeText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

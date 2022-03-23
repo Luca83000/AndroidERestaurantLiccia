@@ -1,6 +1,14 @@
 <resources>
     <string name="app_name">AndroidERestaurant</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="first_fragment">First Fragment</string>
+    <string name="text_entree">Entrées</string>
+    <string name="text_plats">Plats</string>
+    <string name="text_desserts">Desserts</string>
+    <string name="category">Catégorie</string>
+    <string name="button_prix">TOTAL  </string>
+    <string name="image_view_select" />
+    <string-array name="items_list">
+        <item>Pate Carbo</item>
+        <item>Pate Patrouille</item>
+    </string-array>
+
 </resources>
