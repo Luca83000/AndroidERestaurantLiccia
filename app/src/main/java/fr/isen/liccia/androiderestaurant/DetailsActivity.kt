@@ -1,6 +1,8 @@
 package fr.isen.liccia.androiderestaurant
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,12 +12,18 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
+import com.google.gson.Gson
 import fr.isen.liccia.androiderestaurant.databinding.ActivityDetailsBinding
+import fr.isen.liccia.androiderestaurant.model.Basket
+import fr.isen.liccia.androiderestaurant.model.BasketItems
 import fr.isen.liccia.androiderestaurant.model.Item
+import java.io.File
 
 class DetailsActivity : AppCompatActivity() {
     private lateinit var  binding: ActivityDetailsBinding
     private lateinit var button: Button
+    private lateinit var buttonPlus: Button
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,19 +64,9 @@ class DetailsActivity : AppCompatActivity() {
             textView.setTextColor(Color.BLACK)
             snackBar.show()
         }
+        initDetail(item)
 
     }
-
-    /*private fun initDetail(dish: Dish) {
-
-        var nbInBucket = 1
-        binding.buttonPlus.setOnClickListener {
-            changeNumber(dish, 1)
-        }
-        binding.buttonMoins.setOnClickListener {
-            changeNumber(dish, 0)
-        }
-    }*/
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
@@ -84,5 +82,82 @@ class DetailsActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+
+    private fun initDetail(item: Item) {
+
+        var nbInBucket = 1
+        binding.buttonPlus.setOnClickListener {
+            changeNumber(item, 1)
+        }
+        binding.buttonMoins.setOnClickListener {
+            changeNumber(item, 0)
+        }
+        binding.detailTitle.text = item.name_fr
+
+        val txt = getString(R.string.totalPrice) + item.prices[0].price + " €"
+        binding.buttonPrix.text = txt
+
+        binding.buttonPlus.setOnClickListener {
+            Toast.makeText(this, getString(R.string.addToBasket), Toast.LENGTH_SHORT).show()
+            updateFile(BasketItems(item, nbInBucket))
+            finish()
+            changeActivity()
+        }
+
+    }
+
+
+    private fun changeNumber(item: Item, minusOrplus: Int) {
+        var nb = (binding.quantityText.text as String).toInt()
+        if (minusOrplus == 0) {
+            if (nb == 1) {
+            } else {
+                nb--
+            }
+        } else {
+            nb++
+        }
+        binding.quantityText.text = nb.toString()
+        val price = item.prices[0].price.toFloat()
+        val totalPrice = getString(R.string.totalPrice) + price * nb + " €"
+        binding.buttonPrix.text = totalPrice
+        changePrice(item, nb)
+
+    }
+
+
+    @SuppressLint("SetTextI18n")
+    private fun changePrice(item: Item, nb: Int) {
+        var newPrice = item.prices[0].price
+        newPrice = newPrice.times(nb)
+        binding.buttonPrix.text = "$newPrice €"
+    }
+    private fun updateFile(itemBasket : BasketItems) {
+        val file = File(cacheDir.absolutePath + "/basket.json")
+        var dishesBasket: List<BasketItems> = ArrayList()
+
+        if (file.exists()) {
+            dishesBasket = Gson().fromJson(file.readText(), Basket::class.java).data
+        }
+
+        var dupli = false
+        for (i in dishesBasket.indices) {
+            if (dishesBasket[i].item == itemBasket.item) {
+                dishesBasket[i].quantity += itemBasket.quantity
+                dupli = true
+            }
+        }
+
+        if (!dupli) {
+            dishesBasket = dishesBasket + itemBasket
+        }
+
+        file.writeText(Gson().toJson(Basket(dishesBasket)))
+    }
+
+    private fun changeActivity() {
+        val intent = Intent(this@DetailsActivity, BasketActivity::class.java)
+        startActivity(intent)
+    }
 
 }

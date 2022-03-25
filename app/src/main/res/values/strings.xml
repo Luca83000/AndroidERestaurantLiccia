@@ -12,4 +12,11 @@
     </string-array>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="quantity_text">Quantity</string>
+    <string name="basketIconDeleteContentDescription">basketIconDeleteContentDescription</string>
+    <string name="basketButtonDeleteAllContentDescription">basketButtonDeleteAllContentDescription</string>
+    <string name="basketButtonBuy">basketButtonBuy</string>
+    <string name="basketTitle">basketTitle</string>
+    <string name="basketTotalQuantity">Quantité totale : </string>
+    <string name="totalPrice">Total : </string>
+    <string name="addToBasket">Ajout au panier réussi</string>
 </resources>
