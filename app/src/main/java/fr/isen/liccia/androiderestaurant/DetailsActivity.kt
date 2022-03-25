@@ -1,5 +1,6 @@
 package fr.isen.liccia.androiderestaurant
 
+import android.content.Context
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,6 +11,7 @@ import android.widget.TextView
 import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
 import fr.isen.liccia.androiderestaurant.databinding.ActivityDetailsBinding
+import fr.isen.liccia.androiderestaurant.model.Item
 
 class DetailsActivity : AppCompatActivity() {
     private lateinit var  binding: ActivityDetailsBinding
@@ -21,12 +23,26 @@ class DetailsActivity : AppCompatActivity() {
         binding = ActivityDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.detailTitle.text = intent.getStringExtra(MenuActivity.ITEM_KEY)
+        val item = intent.getSerializableExtra(MenuActivity.ITEM_KEY) as Item
+
+        binding.detailTitle.text = item.name_fr
+
+        binding.ingredientsText.text = item.ingredients.joinToString(", " ){it.name_fr}
+
+        binding.buttonPrix.text = item.prices.joinToString(", " ){"Total  " + it.price.toString() + " €"}
+
+        val carouselAdapter = CarouselAdapter(this,item.images)
+        binding.detailSlider.adapter = carouselAdapter
 
         val actionBar = supportActionBar
-        //actionBar!!.title = "Commande"
-        actionBar!!.title = intent.getStringExtra(MenuActivity.ITEM_KEY)
+        actionBar!!.title = "Commande"
 
+
+        val quantity = getString(R.string.quantity_text)
+        binding.quantityText.text = quantity
+
+        val price = getString(R.string.button_prix)
+        binding.buttonPrix.text = price
 
         button = findViewById(R.id.buttonPrix)
         button.setOnClickListener {
@@ -43,6 +59,17 @@ class DetailsActivity : AppCompatActivity() {
 
     }
 
+    /*private fun initDetail(dish: Dish) {
+
+        var nbInBucket = 1
+        binding.buttonPlus.setOnClickListener {
+            changeNumber(dish, 1)
+        }
+        binding.buttonMoins.setOnClickListener {
+            changeNumber(dish, 0)
+        }
+    }*/
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
         return super.onCreateOptionsMenu(menu)
@@ -56,5 +83,6 @@ class DetailsActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
+
 
 }

@@ -1,6 +1,7 @@
 package fr.isen.liccia.androiderestaurant
 
 
+import android.annotation.SuppressLint
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -14,10 +15,10 @@ import fr.isen.liccia.androiderestaurant.model.Item
 
 class CategoryAdapter(private var arrayListOf: ArrayList<Item>, val clickListener: (Item)-> Unit) : RecyclerView.Adapter<CategoryAdapter.MyViewHolder>() {
 
-
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var itemTextView: TextView = view.findViewById(R.id.categoryTitle)
-        var imageViewSelect: ImageView = view.findViewById(R.id.imageViewSelect)
+        var prixTextView: TextView = view.findViewById(R.id.prixText)
+        var image: ImageView = view.findViewById(R.id.imageViewSelect)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -27,22 +28,23 @@ class CategoryAdapter(private var arrayListOf: ArrayList<Item>, val clickListene
         return MyViewHolder(itemView)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         Log.d("XXX","onBindViewHolder")
         val item = arrayListOf[position]
         holder.itemTextView.text = item.name_fr
+        holder.prixTextView.text = item.prices[0].price.toString() + " € "
         holder.itemView.setOnClickListener {
             clickListener(item)
         }
 
-       /* holder.imageViewSelect.image = item.images
-
+        val url = item.images[0]
         Picasso.get()
-            .load(item.images[0])
-            .placeholder(R.drawable._834760_logo_de_l_emission_cauchemar_en_cuisine_950x0_2)
-            .fit()
+            .load(url.ifEmpty { null })
+            .placeholder(R.drawable.philippe_etchebest_mentor_background)
+            .fit().centerCrop()
             .error(R.drawable.philippe_etchebest_mentor_background)
-            .into(imageViewSelect)*/
+            .into(holder.image)
     }
 
     override fun getItemCount(): Int {

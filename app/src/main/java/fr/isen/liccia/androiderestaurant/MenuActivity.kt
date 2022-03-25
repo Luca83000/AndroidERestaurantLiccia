@@ -37,7 +37,6 @@ class MenuActivity : AppCompatActivity() {
         actionBar!!.title = categoryName
         binding.category.text = categoryName
 
-
         //val items = resources.getStringArray(R.array.items_list).toList() as ArrayList
 
         monRecycler = findViewById(R.id.itemsList)
