@@ -37,6 +37,14 @@ class MenuActivity : AppCompatActivity() {
         actionBar!!.title = categoryName
         binding.category.text = categoryName
 
+        /*binding.basket.setOnClickListener {
+            goToBasket()
+        }
+
+        binding.bluetooth.setOnClickListener {
+            goToBluetooth()
+        }*/
+
         //val items = resources.getStringArray(R.array.items_list).toList() as ArrayList
 
         monRecycler = findViewById(R.id.itemsList)
@@ -91,6 +99,26 @@ class MenuActivity : AppCompatActivity() {
             }
         queue.add(stringReq)
 
+    }
+
+    private fun goToBasket() {
+        val myIntent = Intent(this, BasketActivity::class.java)
+        Toast.makeText(
+            this,
+            "Redirection vers le panier",
+            Toast.LENGTH_SHORT
+        ).show()
+        startActivity(myIntent)
+    }
+
+    private fun goToBluetooth() {
+        val myIntent = Intent(this, BluetoothActivity::class.java)
+        Toast.makeText(
+            this,
+            "Redirection vers le BLE",
+            Toast.LENGTH_SHORT
+        ).show()
+        startActivity(myIntent)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

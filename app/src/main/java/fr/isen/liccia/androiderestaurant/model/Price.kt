@@ -4,5 +4,5 @@ import java.io.Serializable
 
 data class Price(
    val id: Int,
-   val price: Float
+   val price: String
 ): Serializable

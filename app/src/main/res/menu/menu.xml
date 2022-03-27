@@ -5,16 +5,14 @@
     <item
         android:id="@+id/ble"
         android:icon="@drawable/ic_bluetooth"
-        app:showAsAction="ifRoom|collapseActionView"
-        android:title="Bluetooth"
-    />
+        android:title="@string/bluetooth"
+        app:showAsAction="ifRoom|collapseActionView" />
 
     <item
         android:id="@+id/panier"
         android:icon="@drawable/ic_shopping"
-        app:showAsAction="ifRoom|collapseActionView"
-            android:title="Panier"
-    />
+        android:title="@string/basket"
+        app:showAsAction="ifRoom|collapseActionView" />
 
 
 </menu>

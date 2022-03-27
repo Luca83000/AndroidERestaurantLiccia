@@ -25,57 +25,53 @@ class BasketActivity : AppCompatActivity() {
 
         if (file.exists()) {
             val basketItems : List<BasketItems> = Gson().fromJson(file.readText(), Basket::class.java).data
-            //display(basketItems)
+            display(basketItems)
         }
 
-        val quantity = getString(R.string.basketTotalQuantity)
+        val quantity = getString(R.string.basketTotalQuantity) + this.getSharedPreferences(getString(R.string.spFileName), Context.MODE_PRIVATE).getInt(getString(R.string.spTotalQuantity), 0).toString()
         binding.basketTotalQuantity.text = quantity
 
-        val price = getString(R.string.totalPrice)
+        val price = getString(R.string.totalPrice) + this.getSharedPreferences(getString(R.string.spFileName), Context.MODE_PRIVATE).getFloat(getString(R.string.spTotalPrice), 0.0f).toString()
         binding.basketTotalPrice.text = price
 
-        /*binding.basketButtonBuy.setOnClickListener {
-            val userId = this.getSharedPreferences(getString(R.string.spFileName), Context.MODE_PRIVATE).getInt(getString(R.string.spUserId), 0)
 
-        }*/
-
-        /*binding.basketButtonDeleteAll.setOnClickListener {
+        binding.basketButtonDeleteAll.setOnClickListener {
             deleteBasketData()
             finish()
-        }*/
+        }
     }
 
-  /*  private fun display(dishesList: List<BasketItems>) {
+    private fun display(itemsList: List<BasketItems>) {
         binding.basketList.layoutManager = LinearLayoutManager(this)
-        binding.basketList.adapter = BasketAdapter(dishesList) {
+        binding.basketList.adapter = BasketAdapter(itemsList) {
             deleteDishBasket(it)
         }
-    }*/
+    }
 
-   /* private fun deleteDishBasket(item : BasketItems) {
+    private fun deleteDishBasket(item : BasketItems) {
         val file = File(cacheDir.absolutePath + "/basket.json")
-        var dishesBasket: List<BasketItems> = ArrayList()
+        var itemBasket: List<BasketItems> = ArrayList()
 
         if (file.exists()) {
-            dishesBasket = Gson().fromJson(file.readText(), Basket::class.java).data
-            dishesBasket = dishesBasket - item
+            itemBasket = Gson().fromJson(file.readText(), Basket::class.java).data
+            itemBasket = itemBasket - item
             updateSharedPreferences(item.quantity, item.item.prices[0].price.toFloat())
         }
 
-        file.writeText(Gson().toJson(Basket(dishesBasket)))
+        file.writeText(Gson().toJson(Basket(itemBasket)))
 
         finish()
         this.recreate()
-    }*/
+    }
 
-   /* private fun deleteBasketData() {
+    private fun deleteBasketData() {
         File(cacheDir.absolutePath + "/basket.json").delete()
         this.getSharedPreferences(getString(R.string.spFileName), Context.MODE_PRIVATE).edit().remove(getString(R.string.spTotalPrice)).apply()
         this.getSharedPreferences(getString(R.string.spFileName), Context.MODE_PRIVATE).edit().remove(getString(R.string.spTotalQuantity)).apply()
         Toast.makeText(this, getString(R.string.basketDeleteAllTxt), Toast.LENGTH_SHORT).show()
-    }*/
+    }
 
-   /* private fun updateSharedPreferences(quantity: Int, price: Float) {
+    private fun updateSharedPreferences(quantity: Int, price: Float) {
         val sharedPreferences = this.getSharedPreferences(getString(R.string.spFileName), Context.MODE_PRIVATE)
 
         val oldQuantity = sharedPreferences.getInt(getString(R.string.spTotalQuantity), 0)
@@ -85,5 +81,5 @@ class BasketActivity : AppCompatActivity() {
         val oldPrice = sharedPreferences.getFloat(getString(R.string.spTotalPrice), 0.0f)
         val newPrice = oldPrice - price
         sharedPreferences.edit().putFloat(getString(R.string.spTotalPrice), newPrice).apply()
-    }*/
+    }
 }

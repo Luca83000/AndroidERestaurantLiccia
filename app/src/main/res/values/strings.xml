@@ -4,19 +4,31 @@
     <string name="text_plats">Plats</string>
     <string name="text_desserts">Desserts</string>
     <string name="category">Catégorie</string>
-    <string name="button_prix">TOTAL  </string>
+    <string name="button_prix">TOTAL :  </string>
     <string name="image_view_select" />
     <string-array name="items_list">
         <item>Pate Carbo</item>
         <item>Pate Patrouille</item>
     </string-array>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="quantity_text">Quantity</string>
     <string name="basketIconDeleteContentDescription">basketIconDeleteContentDescription</string>
     <string name="basketButtonDeleteAllContentDescription">basketButtonDeleteAllContentDescription</string>
     <string name="basketButtonBuy">basketButtonBuy</string>
     <string name="basketTitle">basketTitle</string>
     <string name="basketTotalQuantity">Quantité totale : </string>
-    <string name="totalPrice">Total : </string>
+    <string name="totalPrice">Total :  </string>
     <string name="addToBasket">Ajout au panier réussi</string>
+    <string name="buttonplus">buttonplus</string>
+    <string name="buttonmoins">buttonmoins</string>
+    <string name="quantity_text">1</string>
+    <string name="basketDeleteAllTxt">Votre panier a été supprimé</string>
+
+
+    <!-- Shared Preferences -->
+    <string name="spFileName">SharedPreferences</string>
+    <string name="spTotalQuantity">totalBasketQuantity</string>
+    <string name="spTotalPrice">totalBasketPrice</string>
+    <string name="spUserId">userId</string>
+    <string name="bluetooth">-</string>
+    <string name="basket">-</string>
 </resources>
