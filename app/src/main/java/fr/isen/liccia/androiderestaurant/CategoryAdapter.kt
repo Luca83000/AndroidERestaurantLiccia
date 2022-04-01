@@ -13,7 +13,8 @@ import com.squareup.picasso.Picasso
 import fr.isen.liccia.androiderestaurant.model.Item
 
 
-class CategoryAdapter(private var arrayListOf: ArrayList<Item>, val clickListener: (Item)-> Unit) : RecyclerView.Adapter<CategoryAdapter.MyViewHolder>() {
+class CategoryAdapter(private var arrayListOf: ArrayList<Item>, val clickListener: (Item) -> Unit) :
+    RecyclerView.Adapter<CategoryAdapter.MyViewHolder>() {
 
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var itemTextView: TextView = view.findViewById(R.id.categoryTitle)
@@ -30,10 +31,10 @@ class CategoryAdapter(private var arrayListOf: ArrayList<Item>, val clickListene
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        Log.d("XXX","onBindViewHolder")
+        Log.d("XXX", "onBindViewHolder")
         val item = arrayListOf[position]
         holder.itemTextView.text = item.name_fr
-        holder.prixTextView.text = item.prices[0].price.toString() + " € "
+        holder.prixTextView.text = item.prices[0].price + " € "
         holder.itemView.setOnClickListener {
             clickListener(item)
         }

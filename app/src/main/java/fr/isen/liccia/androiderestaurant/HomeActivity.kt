@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import fr.isen.liccia.androiderestaurant.ble.BLEScanActivity
 import fr.isen.liccia.androiderestaurant.databinding.ActivityHomeBinding
 
 class HomeActivity : AppCompatActivity() {
@@ -25,26 +26,32 @@ class HomeActivity : AppCompatActivity() {
         val actionBar = supportActionBar
         actionBar!!.title = "Menu" // Menu
 
-            binding.cauchemarHome.setOnClickListener {
-                goToHome()
-            }
+        binding.cauchemarHome.setOnClickListener {
+            goToHome()
+        }
 
-            binding.entreeText.setOnClickListener {
-                goToCategory(getString(R.string.text_entree))
-                binding.entreeText.movementMethod = LinkMovementMethod.getInstance()
-            }
+        binding.entreeText.setOnClickListener {
+            goToCategory(getString(R.string.text_entree))
+            binding.entreeText.movementMethod = LinkMovementMethod.getInstance()
+        }
 
-            binding.platText.setOnClickListener {
-                goToCategory(getString(R.string.text_plats))
-                binding.platText.movementMethod = LinkMovementMethod.getInstance()
-            }
+        binding.platText.setOnClickListener {
+            goToCategory(getString(R.string.text_plats))
+            binding.platText.movementMethod = LinkMovementMethod.getInstance()
+        }
 
 
-            binding.dessertText.setOnClickListener {
-                goToCategory(getString(R.string.text_desserts))
-                binding.dessertText.movementMethod = LinkMovementMethod.getInstance()
-            }
-                }
+        binding.dessertText.setOnClickListener {
+            goToCategory(getString(R.string.text_desserts))
+            binding.dessertText.movementMethod = LinkMovementMethod.getInstance()
+        }
+
+        binding.bleText.setOnClickListener {
+            goToBluetooth()
+            binding.dessertText.movementMethod = LinkMovementMethod.getInstance()
+        }
+    }
+
 
     private fun goToHome() {
         val myIntent = Intent(this, MainActivity::class.java)
@@ -67,16 +74,41 @@ class HomeActivity : AppCompatActivity() {
         startActivity(myIntent)
     }
 
+    private fun goToBasket() {
+        val myIntent = Intent(this, BasketActivity::class.java)
+        Toast.makeText(
+            this,
+            "Redirection vers le panier",
+            Toast.LENGTH_SHORT
+        ).show()
+        startActivity(myIntent)
+    }
+
+    private fun goToBluetooth() {
+        val myIntent = Intent(this, BLEScanActivity::class.java)
+        Toast.makeText(
+            this,
+            "Redirection vers le BLE",
+            Toast.LENGTH_SHORT
+        ).show()
+        startActivity(myIntent)
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
-            R.id.ble -> Toast.makeText(this, "BLE sélectionné", Toast.LENGTH_SHORT).show()
-            R.id.panier -> Toast.makeText(this, "Panier sélectionné", Toast.LENGTH_SHORT).show()
-            else -> {}
+        when (item.itemId) {
+            R.id.ble -> {
+                Toast.makeText(this, "BLE sélectionné", Toast.LENGTH_SHORT).show(); goToBluetooth()
+            }
+            R.id.panier -> {
+                Toast.makeText(this, "Panier sélectionné", Toast.LENGTH_SHORT).show(); goToBasket()
+            }
+            else -> {
+            }
         }
         return super.onOptionsItemSelected(item)
     }
@@ -85,8 +117,6 @@ class HomeActivity : AppCompatActivity() {
         super.onDestroy()
         Log.d("Home", "onDestroy Called")
     }
-
-
 }
 
 

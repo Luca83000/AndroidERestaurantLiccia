@@ -12,7 +12,6 @@
         android:layout_height="205dp"
         android:layout_marginTop="8dp"
         android:clickable="true"
-        android:contentDescription="TODO"
         android:focusable="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,7 +23,7 @@
         android:id="@+id/dessertText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="70dp"
         android:clickable="true"
         android:focusable="true"
         android:fontFamily="cursive"
@@ -38,7 +37,7 @@
         android:id="@+id/entreeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="32dp"
         android:clickable="true"
         android:focusable="true"
         android:fontFamily="cursive"
@@ -53,7 +52,7 @@
         android:id="@+id/platText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="84dp"
+        android:layout_marginTop="70dp"
         android:clickable="true"
         android:focusable="true"
         android:fontFamily="cursive"
@@ -63,5 +62,17 @@
         app:layout_constraintStart_toEndOf="@+id/entreeText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/entreeText" />
+
+    <TextView
+        android:id="@+id/bleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:fontFamily="cursive"
+        android:text="@string/ble_text"
+        android:textSize="52sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dessertText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

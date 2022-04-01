@@ -13,7 +13,7 @@ private const val ARG_PICTURE = "picture"
 
 class PictureFragment : Fragment() {
     private var picture: String? = null
-    private lateinit var binding : FragmentPictureBinding
+    private lateinit var binding: FragmentPictureBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +25,7 @@ class PictureFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentPictureBinding.inflate(inflater, container, false)
         // Inflate the layout for this fragment
         return binding.root
@@ -34,7 +34,8 @@ class PictureFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Picasso.get().load(picture?.ifEmpty { null }).placeholder(R.drawable.philippe_etchebest_mentor_background).into(binding.pictureView)
+        Picasso.get().load(picture?.ifEmpty { null })
+            .placeholder(R.drawable.philippe_etchebest_mentor_background).into(binding.pictureView)
     }
 
     companion object {

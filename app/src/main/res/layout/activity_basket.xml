@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:fontFamily="serif"
-        android:text="@string/basketTitle"
+        android:text="@string/basket_title"
         android:textAlignment="center"
         android:textColor="#000000"
         android:textSize="34sp"
@@ -42,6 +42,7 @@
         android:layout_marginBottom="12dp"
         android:textAlignment="center"
         android:textColor="#000000"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/basketTotalPrice"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -54,6 +55,7 @@
         android:layout_marginBottom="16dp"
         android:textAlignment="center"
         android:textColor="#000000"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/basketButtonBuy"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -65,7 +67,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:background="#B60000"
-        android:text="@string/basketButtonBuy"
+        android:text="@string/basket_button_buy"
         android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -79,7 +81,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="44dp"
         android:clickable="true"
-        android:contentDescription="@string/basketButtonDeleteAllContentDescription"
+        android:contentDescription="@string/basket_button_delete_all_content_description"
         android:focusable="true"
         android:minWidth="48dp"
         android:minHeight="48dp"
@@ -89,6 +91,16 @@
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@android:drawable/ic_menu_delete"
         tools:ignore="ImageContrastCheck,RedundantDescriptionCheck" />
+
+    <ImageView
+        android:id="@+id/homeButton"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="44dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/basketTotalPrice"
+        app:srcCompat="@drawable/ic_home" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

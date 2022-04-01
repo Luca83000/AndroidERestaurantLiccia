@@ -14,5 +14,4 @@
         android:title="@string/basket"
         app:showAsAction="ifRoom|collapseActionView" />
 
-
-</menu>
+    </menu>

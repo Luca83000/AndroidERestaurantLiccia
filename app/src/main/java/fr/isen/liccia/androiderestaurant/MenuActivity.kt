@@ -13,6 +13,7 @@ import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.google.gson.Gson
+import fr.isen.liccia.androiderestaurant.ble.BLEScanActivity
 import fr.isen.liccia.androiderestaurant.databinding.ActivityMenuBinding
 import fr.isen.liccia.androiderestaurant.model.DataResult
 import fr.isen.liccia.androiderestaurant.model.Item
@@ -21,7 +22,7 @@ import java.nio.charset.Charset
 import java.util.ArrayList
 
 class MenuActivity : AppCompatActivity() {
-    private lateinit var binding : ActivityMenuBinding
+    private lateinit var binding: ActivityMenuBinding
     private lateinit var monRecycler: RecyclerView
     private var itemsList = ArrayList<Item>()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,13 +38,6 @@ class MenuActivity : AppCompatActivity() {
         actionBar!!.title = categoryName
         binding.category.text = categoryName
 
-        /*binding.basket.setOnClickListener {
-            goToBasket()
-        }
-
-        binding.bluetooth.setOnClickListener {
-            goToBluetooth()
-        }*/
 
         //val items = resources.getStringArray(R.array.items_list).toList() as ArrayList
 
@@ -52,9 +46,8 @@ class MenuActivity : AppCompatActivity() {
         binding.itemsList.adapter = CategoryAdapter(itemsList) {
             val intent = Intent(this, DetailsActivity::class.java)
             intent.putExtra(ITEM_KEY, it)
-            Toast.makeText(this,"Vous avez sélectionné $it",Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Vous avez sélectionné $it", Toast.LENGTH_SHORT).show()
             startActivity(intent)
-
         }
         getDataFromApi(intent.getStringExtra("category") ?: "")
     }
@@ -63,7 +56,7 @@ class MenuActivity : AppCompatActivity() {
         const val ITEM_KEY = "item"
     }
 
-    private fun getDataFromApi(category : String){
+    private fun getDataFromApi(category: String) {
         val queue = Volley.newRequestQueue(this)
         val url = "http://test.api.catering.bluecodegames.com/" + "menu"
         val jsonObject = JSONObject()
@@ -85,7 +78,11 @@ class MenuActivity : AppCompatActivity() {
                     binding.itemsList.adapter = CategoryAdapter(items) {
                         val intent = Intent(this, DetailsActivity::class.java)
                         intent.putExtra(ITEM_KEY, it)
-                        Toast.makeText(this, "Vous avez sélectionné :  ${it.name_fr}", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            this,
+                            "Vous avez sélectionné :  ${it.name_fr}",
+                            Toast.LENGTH_SHORT
+                        ).show()
                         startActivity(intent)
                     }
                 },
@@ -112,7 +109,7 @@ class MenuActivity : AppCompatActivity() {
     }
 
     private fun goToBluetooth() {
-        val myIntent = Intent(this, BluetoothActivity::class.java)
+        val myIntent = Intent(this, BLEScanActivity::class.java)
         Toast.makeText(
             this,
             "Redirection vers le BLE",
@@ -127,10 +124,15 @@ class MenuActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
-            R.id.ble -> Toast.makeText(this, "BLE sélectionné", Toast.LENGTH_SHORT).show()
-            R.id.panier -> Toast.makeText(this, "Panier sélectionné", Toast.LENGTH_SHORT).show()
-            else -> {}
+        when (item.itemId) {
+            R.id.ble -> {
+                Toast.makeText(this, "BLE sélectionné", Toast.LENGTH_SHORT).show(); goToBluetooth()
+            }
+            R.id.panier -> {
+                Toast.makeText(this, "Panier sélectionné", Toast.LENGTH_SHORT).show(); goToBasket()
+            }
+            else -> {
+            }
         }
         return super.onOptionsItemSelected(item)
     }

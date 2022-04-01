@@ -13,7 +13,7 @@ import fr.isen.liccia.androiderestaurant.model.BasketItems
 import java.io.File
 
 class BasketActivity : AppCompatActivity() {
-    private lateinit var binding : ActivityBasketBinding
+    private lateinit var binding: ActivityBasketBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,34 +21,50 @@ class BasketActivity : AppCompatActivity() {
         binding = ActivityBasketBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val actionBar = supportActionBar
+        actionBar!!.title = "Panier"
+
         val file = File(cacheDir.absolutePath + "/basket.json")
 
         if (file.exists()) {
-            val basketItems : List<BasketItems> = Gson().fromJson(file.readText(), Basket::class.java).data
+            val basketItems: List<BasketItems> =
+                Gson().fromJson(file.readText(), Basket::class.java).data
             display(basketItems)
         }
 
-        val quantity = getString(R.string.basketTotalQuantity) + this.getSharedPreferences(getString(R.string.spFileName), Context.MODE_PRIVATE).getInt(getString(R.string.spTotalQuantity), 0).toString()
+        val quantity = getString(R.string.basket_total_quantity) + " " + this.getSharedPreferences(
+            getString(R.string.sp_file_name),
+            Context.MODE_PRIVATE
+        ).getInt(getString(R.string.sp_total_quantity), 0).toString() + " article(s)"
         binding.basketTotalQuantity.text = quantity
 
-        val price = getString(R.string.totalPrice) + this.getSharedPreferences(getString(R.string.spFileName), Context.MODE_PRIVATE).getFloat(getString(R.string.spTotalPrice), 0.0f).toString()
+        val price = getString(R.string.total_price) + " " + this.getSharedPreferences(
+            getString(R.string.sp_file_name),
+            Context.MODE_PRIVATE
+        ).getFloat(getString(R.string.sp_total_price), 0.0f).toString() + " € "
         binding.basketTotalPrice.text = price
 
 
         binding.basketButtonDeleteAll.setOnClickListener {
             deleteBasketData()
             finish()
+            changeActivity()
+        }
+
+        binding.homeButton.setOnClickListener {
+            finish()
+            changeActivity()
         }
     }
 
     private fun display(itemsList: List<BasketItems>) {
         binding.basketList.layoutManager = LinearLayoutManager(this)
         binding.basketList.adapter = BasketAdapter(itemsList) {
-            deleteDishBasket(it)
+            deleteItemBasket(it)
         }
     }
 
-    private fun deleteDishBasket(item : BasketItems) {
+    private fun deleteItemBasket(item: BasketItems) {
         val file = File(cacheDir.absolutePath + "/basket.json")
         var itemBasket: List<BasketItems> = ArrayList()
 
@@ -66,20 +82,28 @@ class BasketActivity : AppCompatActivity() {
 
     private fun deleteBasketData() {
         File(cacheDir.absolutePath + "/basket.json").delete()
-        this.getSharedPreferences(getString(R.string.spFileName), Context.MODE_PRIVATE).edit().remove(getString(R.string.spTotalPrice)).apply()
-        this.getSharedPreferences(getString(R.string.spFileName), Context.MODE_PRIVATE).edit().remove(getString(R.string.spTotalQuantity)).apply()
-        Toast.makeText(this, getString(R.string.basketDeleteAllTxt), Toast.LENGTH_SHORT).show()
+        this.getSharedPreferences(getString(R.string.sp_file_name), Context.MODE_PRIVATE).edit()
+            .remove(getString(R.string.sp_total_price)).apply()
+        this.getSharedPreferences(getString(R.string.sp_file_name), Context.MODE_PRIVATE).edit()
+            .remove(getString(R.string.sp_total_quantity)).apply()
+        Toast.makeText(this, getString(R.string.basket_delete_all_txt), Toast.LENGTH_SHORT).show()
     }
 
     private fun updateSharedPreferences(quantity: Int, price: Float) {
-        val sharedPreferences = this.getSharedPreferences(getString(R.string.spFileName), Context.MODE_PRIVATE)
+        val sharedPreferences =
+            this.getSharedPreferences(getString(R.string.sp_file_name), Context.MODE_PRIVATE)
 
-        val oldQuantity = sharedPreferences.getInt(getString(R.string.spTotalQuantity), 0)
+        val oldQuantity = sharedPreferences.getInt(getString(R.string.sp_total_quantity), 0)
         val newQuantity = oldQuantity + quantity
-        sharedPreferences.edit().putInt(getString(R.string.spTotalQuantity), newQuantity).apply()
+        sharedPreferences.edit().putInt(getString(R.string.sp_total_quantity), newQuantity).apply()
 
-        val oldPrice = sharedPreferences.getFloat(getString(R.string.spTotalPrice), 0.0f)
+        val oldPrice = sharedPreferences.getFloat(getString(R.string.sp_total_price), 0.0f)
         val newPrice = oldPrice - price
-        sharedPreferences.edit().putFloat(getString(R.string.spTotalPrice), newPrice).apply()
+        sharedPreferences.edit().putFloat(getString(R.string.sp_total_price), newPrice).apply()
+    }
+
+    private fun changeActivity() {
+        val intent = Intent(this, HomeActivity::class.java)
+        startActivity(intent)
     }
 }

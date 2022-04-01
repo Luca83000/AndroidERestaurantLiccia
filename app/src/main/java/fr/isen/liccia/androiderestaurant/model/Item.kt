@@ -12,4 +12,4 @@ data class Item(
     val images: ArrayList<String>,
     val ingredients: ArrayList<Ingredients>,
     val prices: ArrayList<Price>
-): Serializable
+) : Serializable

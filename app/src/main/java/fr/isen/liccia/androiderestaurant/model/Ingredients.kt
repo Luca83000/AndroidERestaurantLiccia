@@ -7,4 +7,4 @@ data class Ingredients(
     val id_shop: Int,
     val name_fr: String,
     val name_en: String
-): Serializable
+) : Serializable
