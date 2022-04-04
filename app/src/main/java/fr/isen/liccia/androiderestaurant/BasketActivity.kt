@@ -10,6 +10,7 @@ import com.google.gson.Gson
 import fr.isen.liccia.androiderestaurant.databinding.ActivityBasketBinding
 import fr.isen.liccia.androiderestaurant.model.Basket
 import fr.isen.liccia.androiderestaurant.model.BasketItems
+import fr.isen.liccia.androiderestaurant.model.CartData
 import java.io.File
 
 class BasketActivity : AppCompatActivity() {
@@ -59,7 +60,7 @@ class BasketActivity : AppCompatActivity() {
 
     private fun display(itemsList: List<BasketItems>) {
         binding.basketList.layoutManager = LinearLayoutManager(this)
-        binding.basketList.adapter = BasketAdapter(itemsList) {
+        binding.basketList.adapter = BasketAdapter(itemsList as ArrayList<BasketItems>) {
             deleteItemBasket(it)
         }
     }
@@ -106,4 +107,8 @@ class BasketActivity : AppCompatActivity() {
         val intent = Intent(this, HomeActivity::class.java)
         startActivity(intent)
     }
+
+    public fun getNbItems(cart: CartData): Int =
+        if (cart.items.isNotEmpty()) cart.items.map { it.value }.reduce { acc, amount -> acc + amount } else 0
+
 }

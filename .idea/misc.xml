@@ -3,13 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/luca.liccia/AndroidStudioProjects/AndroidERestaurant/app/src/main/res/drawable/badge_background.xml" value="0.1" />
         <entry key="..\:/Users/luca.liccia/AndroidStudioProjects/AndroidERestaurant/app/src/main/res/drawable/ic_circle.xml" value="0.164" />
         <entry key="..\:/Users/luca.liccia/AndroidStudioProjects/AndroidERestaurant/app/src/main/res/drawable/ic_pause.xml" value="0.164" />
         <entry key="..\:/Users/luca.liccia/AndroidStudioProjects/AndroidERestaurant/app/src/main/res/drawable/ic_play.xml" value="0.164" />
         <entry key="..\:/Users/luca.liccia/AndroidStudioProjects/AndroidERestaurant/app/src/main/res/layout/activity_basket.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/luca.liccia/AndroidStudioProjects/AndroidERestaurant/app/src/main/res/layout/activity_basket_badge.xml" value="0.1" />
         <entry key="..\:/Users/luca.liccia/AndroidStudioProjects/AndroidERestaurant/app/src/main/res/layout/activity_ble.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/luca.liccia/AndroidStudioProjects/AndroidERestaurant/app/src/main/res/layout/activity_bleScan.xml" value="0.1255666364460562" />
+        <entry key="..\:/Users/luca.liccia/AndroidStudioProjects/AndroidERestaurant/app/src/main/res/layout/activity_bleconnexion_state.xml" value="0.1" />
         <entry key="..\:/Users/luca.liccia/AndroidStudioProjects/AndroidERestaurant/app/src/main/res/layout/activity_bledevice.xml" value="0.1255666364460562" />
+        <entry key="..\:/Users/luca.liccia/AndroidStudioProjects/AndroidERestaurant/app/src/main/res/layout/activity_bleservice.xml" value="0.1255666364460562" />
+        <entry key="..\:/Users/luca.liccia/AndroidStudioProjects/AndroidERestaurant/app/src/main/res/layout/activity_bleuuidattributes.xml" value="0.1255666364460562" />
         <entry key="..\:/Users/luca.liccia/AndroidStudioProjects/AndroidERestaurant/app/src/main/res/layout/activity_connection.xml" value="0.14749893116716545" />
         <entry key="..\:/Users/luca.liccia/AndroidStudioProjects/AndroidERestaurant/app/src/main/res/layout/activity_details.xml" value="0.22" />
         <entry key="..\:/Users/luca.liccia/AndroidStudioProjects/AndroidERestaurant/app/src/main/res/layout/activity_home.xml" value="0.14749893116716545" />
@@ -17,15 +22,20 @@
         <entry key="..\:/Users/luca.liccia/AndroidStudioProjects/AndroidERestaurant/app/src/main/res/layout/activity_menu.xml" value="0.14749893116716545" />
         <entry key="..\:/Users/luca.liccia/AndroidStudioProjects/AndroidERestaurant/app/src/main/res/layout/basket_cell.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/luca.liccia/AndroidStudioProjects/AndroidERestaurant/app/src/main/res/layout/cell_ble.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/luca.liccia/AndroidStudioProjects/AndroidERestaurant/app/src/main/res/layout/cell_ble_characteristics.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/luca.liccia/AndroidStudioProjects/AndroidERestaurant/app/src/main/res/layout/cell_ble_device.xml" value="0.1255666364460562" />
+        <entry key="..\:/Users/luca.liccia/AndroidStudioProjects/AndroidERestaurant/app/src/main/res/layout/cell_ble_service.xml" value="0.22" />
         <entry key="..\:/Users/luca.liccia/AndroidStudioProjects/AndroidERestaurant/app/src/main/res/layout/cell_category.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/luca.liccia/AndroidStudioProjects/AndroidERestaurant/app/src/main/res/layout/custom_cart_item.xml" value="0.7333333333333334" />
         <entry key="..\:/Users/luca.liccia/AndroidStudioProjects/AndroidERestaurant/app/src/main/res/layout/fragment_first.xml" value="0.1414324569356301" />
         <entry key="..\:/Users/luca.liccia/AndroidStudioProjects/AndroidERestaurant/app/src/main/res/layout/fragment_picture.xml" value="0.1359927470534905" />
         <entry key="..\:/Users/luca.liccia/AndroidStudioProjects/AndroidERestaurant/app/src/main/res/layout/fragment_second.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/luca.liccia/AndroidStudioProjects/AndroidERestaurant/app/src/main/res/layout/fragment_third.xml" value="0.1414324569356301" />
         <entry key="..\:/Users/luca.liccia/AndroidStudioProjects/AndroidERestaurant/app/src/main/res/menu/bottom_menu.xml" value="0.14749893116716545" />
-        <entry key="..\:/Users/luca.liccia/AndroidStudioProjects/AndroidERestaurant/app/src/main/res/menu/menu.xml" value="0.14749893116716545" />
+        <entry key="..\:/Users/luca.liccia/AndroidStudioProjects/AndroidERestaurant/app/src/main/res/menu/menu.xml" value="0.22" />
         <entry key="..\:/Users/luca.liccia/AndroidStudioProjects/AndroidERestaurant/app/src/main/res/menu/quantity_badge.xml" value="0.14749893116716545" />
+        <entry key="..\:/Users/luca.liccia/AndroidStudioProjects/AndroidERestaurant/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/luca.liccia/AndroidStudioProjects/AndroidERestaurant/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1295" />
       </map>
     </option>
   </component>

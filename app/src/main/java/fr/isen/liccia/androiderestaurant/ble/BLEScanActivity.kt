@@ -33,6 +33,7 @@ class BLEScanActivity : AppCompatActivity() {
     private var adapter : BLEAdapter? = null
     private lateinit var monRecycler: RecyclerView
 
+
     private val bluetoothAdapter: BluetoothAdapter? by lazy {
         val bluetoothManager = getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
         bluetoothManager.adapter
@@ -57,23 +58,23 @@ class BLEScanActivity : AppCompatActivity() {
                 displayBLEUnAvailable()
             }
         }
-        binding.playIcon.setOnClickListener {
 
+        binding.playIcon.setOnClickListener {
             startLeScanWithPermission(!isScanning)
         }
+
         binding.bleScanStateTitle.setOnClickListener {
             startLeScanWithPermission(!isScanning)
         }
 
         monRecycler = findViewById(R.id.recyclerViewBLE)
         binding.recyclerViewBLE.layoutManager = LinearLayoutManager(this)
-        adapter = BLEAdapter(arrayListOf()) {}
-        binding.recyclerViewBLE.adapter = adapter
-
-        /*binding.recyclerViewBLE.adapter = BLEAdapter(recyclerViewBLE) {
+        adapter = BLEAdapter(arrayListOf()) {
             val intent = Intent(this, BLEDeviceActivity::class.java)
+            intent.putExtra(DEVICE_KEY, it)
             startActivity(intent)
-        }*/
+        }
+        binding.recyclerViewBLE.adapter = adapter
     }
 
     override fun onStop() {
@@ -154,5 +155,9 @@ class BLEScanActivity : AppCompatActivity() {
             binding.playIcon.setImageResource(R.drawable.ic_play)
         }
 
+    }
+
+    companion object {
+        const val DEVICE_KEY = "device"
     }
 }

@@ -12,6 +12,7 @@
         android:id="@+id/panier"
         android:icon="@drawable/ic_shopping"
         android:title="@string/basket"
-        app:showAsAction="ifRoom|collapseActionView" />
+        app:actionLayout="@layout/custom_cart_item"
+        app:showAsAction="always" />
 
     </menu>

@@ -40,7 +40,7 @@ class BLEAdapter(
         val result = bleList[position]
         holder.macAdressText.text = result.device.address
         holder.nameBleText.text = result.device.name
-        holder.nameBleText.text = "Device Unknown"
+        //holder.nameBleText.text = "Device Unknown"
         holder.rssiText.text = result.rssi.toString()
         holder.itemView.setOnClickListener {
             result(result.device)

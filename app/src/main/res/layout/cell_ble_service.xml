@@ -3,11 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ble.BLEDeviceActivity">
+    android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/deviceName"
+        android:id="@+id/serviceName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -15,26 +14,28 @@
         android:text="TextView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Nom du device" />
+        tools:text="Service Name" />
 
     <TextView
-        android:id="@+id/deviceStatus"
+        android:id="@+id/serviceUuID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="32dp"
         android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/deviceName"
-        tools:text="Statut : Déconnecté" />
+        app:layout_constraintTop_toBottomOf="@+id/serviceName"
+        tools:text="12233466" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/serviceList"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="32dp"
+    <ImageView
+        android:id="@+id/serviceArrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/deviceStatus" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_arrow" />
 </androidx.constraintlayout.widget.ConstraintLayout>
