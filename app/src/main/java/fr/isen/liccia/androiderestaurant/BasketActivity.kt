@@ -108,7 +108,7 @@ class BasketActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    public fun getNbItems(cart: CartData): Int =
+    /*public fun getNbItems(cart: CartData): Int =
         if (cart.items.isNotEmpty()) cart.items.map { it.value }.reduce { acc, amount -> acc + amount } else 0
-
+    */
 }

@@ -24,7 +24,7 @@ class HomeActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val actionBar = supportActionBar
-        actionBar!!.title = "Menu" // Menu
+        actionBar!!.title = "Menu"
 
         binding.cauchemarHome.setOnClickListener {
             goToHome()
@@ -102,10 +102,10 @@ class HomeActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.ble -> {
-                Toast.makeText(this, "BLE sélectionné", Toast.LENGTH_SHORT).show(); goToBluetooth()
+                goToBluetooth()
             }
             R.id.panier -> {
-                Toast.makeText(this, "Panier sélectionné", Toast.LENGTH_SHORT).show(); goToBasket()
+                goToBasket()
             }
             else -> {
             }

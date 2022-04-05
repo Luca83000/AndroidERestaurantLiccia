@@ -34,7 +34,7 @@ class CategoryAdapter(private var arrayListOf: ArrayList<Item>, val clickListene
         Log.d("XXX", "onBindViewHolder")
         val item = arrayListOf[position]
         holder.itemTextView.text = item.name_fr
-        holder.prixTextView.text = item.prices[0].price + " € "
+        holder.prixTextView.text = "Prix à l'unité : " + item.prices[0].price + " € "
         holder.itemView.setOnClickListener {
             clickListener(item)
         }

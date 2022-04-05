@@ -82,10 +82,10 @@ class DetailsActivity : AppCompatActivity() {
 
         val nbInBucket = 1
         binding.buttonplus.setOnClickListener {
-            changeNumber(item, 1)
+            changeNumber(item, nbInBucket+1)
         }
         binding.buttonmoins.setOnClickListener {
-            changeNumber(item, 0)
+            changeNumber(item, nbInBucket-1)
         }
         binding.detailTitle.text = item.name_fr
 
@@ -94,17 +94,12 @@ class DetailsActivity : AppCompatActivity() {
 
         binding.buttonPrix.setOnClickListener {
             val snackBar = Snackbar.make(
-                it, "C'est dans le panier mon frère",
+                it, "Article ajouté au panier",
                 Snackbar.LENGTH_LONG
             ).setAction("Action", null)
-            val snackBarView = snackBar.view
-            snackBarView.setBackgroundColor(Color.LTGRAY)
-            val textView =
-                snackBarView.findViewById(com.google.android.material.R.id.snackbar_text) as TextView
-            textView.setTextColor(Color.BLACK)
             snackBar.show()
 
-            Toast.makeText(this, getString(R.string.add_to_basket), Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this, getString(R.string.add_to_basket), Toast.LENGTH_SHORT).show()
             updateFile(BasketItems(item, nbInBucket))
             updateSharedPreferences(nbInBucket, (item.prices[0].price.toFloat() * nbInBucket))
             finish()

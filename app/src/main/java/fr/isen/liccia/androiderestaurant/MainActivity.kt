@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val actionBar = supportActionBar
-        actionBar!!.title = "Accueil" // titre accueil
+        actionBar!!.title = "Accueil"
         val secondActivityBtn = findViewById<View>(R.id.buttonMain)
 
         secondActivityBtn.setOnClickListener {

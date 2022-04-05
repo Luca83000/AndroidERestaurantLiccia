@@ -39,8 +39,6 @@ class MenuActivity : AppCompatActivity() {
         binding.category.text = categoryName
 
 
-        //val items = resources.getStringArray(R.array.items_list).toList() as ArrayList
-
         monRecycler = findViewById(R.id.itemsList)
         binding.itemsList.layoutManager = LinearLayoutManager(applicationContext)
         binding.itemsList.adapter = CategoryAdapter(itemsList) {
@@ -126,10 +124,10 @@ class MenuActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.ble -> {
-                Toast.makeText(this, "BLE sélectionné", Toast.LENGTH_SHORT).show(); goToBluetooth()
+                goToBluetooth()
             }
             R.id.panier -> {
-                Toast.makeText(this, "Panier sélectionné", Toast.LENGTH_SHORT).show(); goToBasket()
+                goToBasket()
             }
             else -> {
             }
