@@ -3,12 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:clickable="true">
 
     <ImageView
         android:id="@+id/cart_badge_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:focusable="auto"
+        android:focusableInTouchMode="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -17,10 +20,13 @@
 
     <TextView
         android:id="@+id/cart_badge"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="23dp"
+        android:layout_height="21dp"
         android:layout_marginTop="-8dp"
         android:background="@drawable/badge_background"
+        android:clickable="true"
+        android:focusable="auto"
+        android:focusableInTouchMode="true"
         android:gravity="center"
         android:padding="3dp"
         android:text="@string/default_preview"

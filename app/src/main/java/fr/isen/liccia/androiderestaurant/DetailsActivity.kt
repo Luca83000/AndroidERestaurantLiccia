@@ -58,7 +58,13 @@ class DetailsActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
-        return super.onCreateOptionsMenu(menu)
+        val menu = menu!!.findItem(R.id.panier)
+        val view = menu.actionView
+        view.setOnClickListener {
+            onOptionsItemSelected(menu)
+        }
+
+        return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -80,12 +86,14 @@ class DetailsActivity : AppCompatActivity() {
 
     private fun initDetail(item: Item) {
 
-        val nbInBucket = 1
+        var nbInBucket = 1
         binding.buttonplus.setOnClickListener {
             changeNumber(item, nbInBucket+1)
+            nbInBucket += 1
         }
         binding.buttonmoins.setOnClickListener {
             changeNumber(item, nbInBucket-1)
+            nbInBucket -= 1
         }
         binding.detailTitle.text = item.name_fr
 

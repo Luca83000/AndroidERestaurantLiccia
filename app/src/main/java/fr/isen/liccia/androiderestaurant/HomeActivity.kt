@@ -96,7 +96,13 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
-        return super.onCreateOptionsMenu(menu)
+        val menu = menu!!.findItem(R.id.panier)
+        val view = menu.actionView
+        view.setOnClickListener {
+            onOptionsItemSelected(menu)
+        }
+
+        return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

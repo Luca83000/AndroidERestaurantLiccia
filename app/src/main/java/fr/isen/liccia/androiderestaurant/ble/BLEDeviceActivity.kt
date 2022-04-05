@@ -60,7 +60,8 @@ class BLEDeviceActivity : AppCompatActivity() {
                 val bleServices =
                     gatt?.services?.map { BLEService(it.uuid.toString(), it.characteristics) }
                         ?: listOf()
-                //val adapter = BleServiceAdapter(applicationContext,bleServices, 0,1,2)
+               // val adapter = BleServiceAdapter(applicationContext,
+                 //   bleServices as MutableList<BLEService>, onCharacteristicRead(),writeIntoCharacteristic(),toggleNotificationOnCharacteristic())
                 runOnUiThread {
                     binding.serviceList.layoutManager = LinearLayoutManager(this@BLEDeviceActivity)
                     binding.serviceList.adapter = adapter
