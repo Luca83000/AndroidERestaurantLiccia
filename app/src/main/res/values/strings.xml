@@ -39,4 +39,7 @@
     <string name="lire">Lire</string>
     <string name="ecrire">Ecrire</string>
     <string name="notifier">Notifier</string>
+    <string name="ble_device_write_characteristic_title">ble_device_write_characteristic_title</string>
+    <string name="ble_device_write_characteristic_confirm">ble_device_write_characteristic_confirm</string>
+    <string name="ble_device_write_characteristic_cancel">ble_device_write_characteristic_cancel</string>
 </resources>
