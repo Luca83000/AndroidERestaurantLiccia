@@ -18,12 +18,8 @@ import fr.isen.liccia.androiderestaurant.model.Item
 import java.io.File
 
 @Suppress("ControlFlowWithEmptyBody")
-class DetailsActivity : CartCompactActivity() {
+class DetailsActivity : MenuBaseActivity() {
     private lateinit var binding: ActivityDetailsBinding
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return true
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,41 +46,15 @@ class DetailsActivity : CartCompactActivity() {
         val quantity = getString(R.string.quantity_text)
         binding.quantityText.text = quantity
 
+        val quantity2 = quantity.toInt()
+
         val price = getString(R.string.button_prix)
         binding.buttonPrix.text = price
 
         initDetail(item)
-        setupBadge()
+        //setupBadge(quantity2)
 
     }
-
-   /* override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu, menu)
-        val menu2 = menu!!.findItem(R.id.panier)
-        val view = menu2.actionView
-        view.setOnClickListener {
-            onOptionsItemSelected(menu2)
-            setupBadge()
-        }
-
-        return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.ble -> {
-                Toast.makeText(this, "BLE sélectionné", Toast.LENGTH_SHORT)
-                    .show(); changeActivityToBLE()
-            }
-            R.id.panier -> {
-                Toast.makeText(this, "Panier sélectionné", Toast.LENGTH_SHORT)
-                    .show(); changeActivityToBasket()
-            }
-            else -> {
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }*/
 
 
     private fun initDetail(item: Item) {
@@ -118,6 +88,7 @@ class DetailsActivity : CartCompactActivity() {
             updateSharedPreferences(nbInBucket, (item.prices[0].price.toFloat() * nbInBucket))
             //finish()
             //changeActivityToBasket()
+            setupBadge(nbInBucket)
         }
     }
 
@@ -159,6 +130,7 @@ class DetailsActivity : CartCompactActivity() {
             if (itemsBasket[i].item == itemBasket.item) {
                 itemsBasket[i].quantity += itemBasket.quantity
                 dupli = true
+                setupBadge(itemBasket.quantity)
             }
         }
 
@@ -180,16 +152,7 @@ class DetailsActivity : CartCompactActivity() {
         val oldPrice = sharedPreferences.getFloat(getString(R.string.sp_total_price), 0.0f)
         val newPrice = oldPrice + price
         sharedPreferences.edit().putFloat(getString(R.string.sp_total_price), newPrice).apply()
-    }
-
-    private fun changeActivityToBasket() {
-        val intent = Intent(this@DetailsActivity, BasketActivity::class.java)
-        startActivity(intent)
-    }
-
-    private fun changeActivityToBLE() {
-        val intent = Intent(this@DetailsActivity, BLEScanActivity::class.java)
-        startActivity(intent)
+        setupBadge(newQuantity);
     }
 
 }

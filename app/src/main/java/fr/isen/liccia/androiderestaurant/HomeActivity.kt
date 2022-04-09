@@ -15,7 +15,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import fr.isen.liccia.androiderestaurant.ble.BLEScanActivity
 import fr.isen.liccia.androiderestaurant.databinding.ActivityHomeBinding
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : MenuBaseActivity() {
 
     private lateinit var binding: ActivityHomeBinding
 
@@ -84,16 +84,6 @@ class HomeActivity : AppCompatActivity() {
         startActivity(myIntent)
     }
 
-    private fun goToBasket() {
-        val myIntent = Intent(this, BasketActivity::class.java)
-        Toast.makeText(
-            this,
-            "Redirection vers le panier",
-            Toast.LENGTH_SHORT
-        ).show()
-        startActivity(myIntent)
-    }
-
     private fun goToBluetooth() {
         val myIntent = Intent(this, BLEScanActivity::class.java)
         Toast.makeText(
@@ -102,30 +92,6 @@ class HomeActivity : AppCompatActivity() {
             Toast.LENGTH_SHORT
         ).show()
         startActivity(myIntent)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu, menu)
-        val menu = menu!!.findItem(R.id.panier)
-        val view = menu.actionView
-        view.setOnClickListener {
-            onOptionsItemSelected(menu)
-        }
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.ble -> {
-                goToBluetooth()
-            }
-            R.id.panier -> {
-                goToBasket()
-            }
-            else -> {
-            }
-        }
-        return super.onOptionsItemSelected(item)
     }
 
     override fun onDestroy() {

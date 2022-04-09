@@ -23,7 +23,7 @@ import org.json.JSONObject
 import java.nio.charset.Charset
 import java.util.ArrayList
 
-class MenuActivity : AppCompatActivity() {
+class MenuActivity : MenuBaseActivity() {
     private lateinit var binding: ActivityMenuBinding
     private lateinit var monRecycler: RecyclerView
     private var itemsList = ArrayList<Item>()
@@ -114,48 +114,4 @@ class MenuActivity : AppCompatActivity() {
 
     }
 
-    private fun goToBasket() {
-        val myIntent = Intent(this, BasketActivity::class.java)
-        Toast.makeText(
-            this,
-            "Redirection vers le panier",
-            Toast.LENGTH_SHORT
-        ).show()
-        startActivity(myIntent)
-    }
-
-    private fun goToBluetooth() {
-        val myIntent = Intent(this, BLEScanActivity::class.java)
-        Toast.makeText(
-            this,
-            "Redirection vers le BLE",
-            Toast.LENGTH_SHORT
-        ).show()
-        startActivity(myIntent)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu, menu)
-        val menu = menu!!.findItem(R.id.panier)
-        val view = menu.actionView
-        view.setOnClickListener {
-            onOptionsItemSelected(menu)
-        }
-
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.ble -> {
-                goToBluetooth()
-            }
-            R.id.panier -> {
-                goToBasket()
-            }
-            else -> {
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
 }

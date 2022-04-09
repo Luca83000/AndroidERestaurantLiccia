@@ -14,7 +14,7 @@ import fr.isen.liccia.androiderestaurant.model.Basket
 import fr.isen.liccia.androiderestaurant.model.BasketItems
 import java.io.File
 
-class BasketActivity : CartCompactActivity() {
+class BasketActivity : MenuBaseActivity() {
     private lateinit var binding: ActivityBasketBinding
     private val itemsList = ArrayList<BasketItems>()
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -79,7 +79,6 @@ class BasketActivity : CartCompactActivity() {
         binding.basketList.layoutManager = LinearLayoutManager(this)
         binding.basketList.adapter = BasketAdapter(itemsList as ArrayList<BasketItems>) {
             deleteItemBasket(it)
-            setupBadge()
         }
         binding.basketList.adapter?.notifyDataSetChanged()
     }
@@ -92,6 +91,7 @@ class BasketActivity : CartCompactActivity() {
             itemBasket = Gson().fromJson(file.readText(), Basket::class.java).data
             itemBasket = itemBasket - item
             updateSharedPreferences(item.quantity, item.item.prices[0].price.toFloat())
+            setupBadge(item.quantity)
         }
 
         file.writeText(Gson().toJson(Basket(itemBasket)))
@@ -107,6 +107,8 @@ class BasketActivity : CartCompactActivity() {
         this.getSharedPreferences(getString(R.string.sp_file_name), Context.MODE_PRIVATE).edit()
             .remove(getString(R.string.sp_total_quantity)).apply()
         Toast.makeText(this, getString(R.string.basket_delete_all_txt), Toast.LENGTH_SHORT).show()
+
+        setupBadge(0)
     }
 
     private fun updateSharedPreferences(quantity: Int, price: Float) {
@@ -120,6 +122,7 @@ class BasketActivity : CartCompactActivity() {
         val oldPrice = sharedPreferences.getFloat(getString(R.string.sp_total_price), 0.0f)
         val newPrice = kotlin.math.abs(oldPrice - price)
         sharedPreferences.edit().putFloat(getString(R.string.sp_total_price), newPrice).apply()
+        setupBadge(newQuantity)
     }
 
     private fun changeActivity() {

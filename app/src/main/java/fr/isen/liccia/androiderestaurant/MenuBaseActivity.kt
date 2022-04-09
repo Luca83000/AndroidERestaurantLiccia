@@ -6,10 +6,12 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import fr.isen.liccia.androiderestaurant.ble.BLEScanActivity
 
 
-open class CartCompactActivity : AppCompatActivity() {
+open class MenuBaseActivity : AppCompatActivity() {
     private var textCartItemCount: TextView? = null
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -17,37 +19,40 @@ open class CartCompactActivity : AppCompatActivity() {
         val menuItem = menu!!.findItem(R.id.panier)
         val actionView = menuItem.actionView
         textCartItemCount = actionView.findViewById<View>(R.id.cartBadge) as TextView
-        setupBadge()
         actionView.setOnClickListener { onOptionsItemSelected(menuItem) }
         return super.onCreateOptionsMenu(menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem) =when(item.itemId) {
-        R.id.panier -> {
-            startActivity(Intent(this, BasketActivity::class.java))
-            true
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.panier -> {
+                Toast.makeText(this, "Panier sélectionné", Toast.LENGTH_SHORT)
+                    .show()
+                startActivity(Intent(this, BasketActivity::class.java))
+            }
+            R.id.ble -> {
+                Toast.makeText(this, "BLE sélectionné", Toast.LENGTH_SHORT)
+                    .show()
+                startActivity(Intent(this, BLEScanActivity::class.java))
+            }
+            else -> {
+            }
         }
-        else -> {
-            super.onOptionsItemSelected(item)
-        }
+        return super.onOptionsItemSelected(item)
     }
 
-    override fun onResume() {
-        super.onResume()
-        setupBadge()
-    }
-
-    protected fun setupBadge() {
+    protected fun setupBadge(quantityBasket: Int): Int {
         if (textCartItemCount != null) {
-            val mCartItemCount = getSharedPreferences(
+            val quantityBasket = getSharedPreferences(
                 "baskets",
                 Context.MODE_PRIVATE
             ).getInt("nombre total", 0)
-                textCartItemCount!!.text = java.lang.String.valueOf(mCartItemCount.coerceAtMost(99))
+                textCartItemCount!!.text = java.lang.String.valueOf(quantityBasket.coerceAtMost(99))
                 if (textCartItemCount!!.visibility != View.VISIBLE) {
                     textCartItemCount!!.visibility = View.VISIBLE
             }
         }
+        return quantityBasket
     }
 
 }
