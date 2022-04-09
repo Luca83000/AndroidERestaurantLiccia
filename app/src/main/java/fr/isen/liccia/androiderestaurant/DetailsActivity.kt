@@ -3,12 +3,10 @@ package fr.isen.liccia.androiderestaurant
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.TextView
 import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
@@ -20,9 +18,12 @@ import fr.isen.liccia.androiderestaurant.model.Item
 import java.io.File
 
 @Suppress("ControlFlowWithEmptyBody")
-class DetailsActivity : AppCompatActivity() {
+class DetailsActivity : CartCompactActivity() {
     private lateinit var binding: ActivityDetailsBinding
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return true
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,18 +54,20 @@ class DetailsActivity : AppCompatActivity() {
         binding.buttonPrix.text = price
 
         initDetail(item)
+        setupBadge()
 
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+   /* override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
-        val menu = menu!!.findItem(R.id.panier)
-        val view = menu.actionView
+        val menu2 = menu!!.findItem(R.id.panier)
+        val view = menu2.actionView
         view.setOnClickListener {
-            onOptionsItemSelected(menu)
+            onOptionsItemSelected(menu2)
+            setupBadge()
         }
 
-        return true
+        return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -81,7 +84,7 @@ class DetailsActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
-    }
+    }*/
 
 
     private fun initDetail(item: Item) {
@@ -102,11 +105,13 @@ class DetailsActivity : AppCompatActivity() {
         binding.buttonPrix.text = txt
 
         binding.buttonPrix.setOnClickListener {
-            val snackBar = Snackbar.make(
+           Snackbar.make(
                 it, "Article(s) ajouté(s) au panier : " + nbInBucket + " " + binding.detailTitle.text,
                 Snackbar.LENGTH_LONG
-            ).setAction("Action", null)
-            snackBar.show()
+            ).setAction("Voir le panier"){
+                startActivity(Intent(this, BasketActivity::class.java))
+            }
+            .show()
 
             //Toast.makeText(this, getString(R.string.add_to_basket), Toast.LENGTH_SHORT).show()
             updateFile(BasketItems(item, nbInBucket))

@@ -21,6 +21,9 @@
         android:theme="@style/Theme.AndroidERestaurant"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".CartCompactActivity"
+            android:exported="false" />
+        <activity
             android:name=".MapsActivity"
             android:exported="false" />
 

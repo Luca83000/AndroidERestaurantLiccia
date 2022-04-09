@@ -1,27 +1,26 @@
 package fr.isen.liccia.androiderestaurant
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import android.view.View
-import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
 import fr.isen.liccia.androiderestaurant.databinding.ActivityBasketBinding
 import fr.isen.liccia.androiderestaurant.model.Basket
 import fr.isen.liccia.androiderestaurant.model.BasketItems
-import fr.isen.liccia.androiderestaurant.model.CartData
 import java.io.File
-import java.lang.Math.abs
-import java.lang.reflect.Array.getInt
 
-class BasketActivity : AppCompatActivity() {
+class BasketActivity : CartCompactActivity() {
     private lateinit var binding: ActivityBasketBinding
     private val itemsList = ArrayList<BasketItems>()
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return true
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,11 +74,14 @@ class BasketActivity : AppCompatActivity() {
 
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun display(itemsList: List<BasketItems>) {
         binding.basketList.layoutManager = LinearLayoutManager(this)
         binding.basketList.adapter = BasketAdapter(itemsList as ArrayList<BasketItems>) {
             deleteItemBasket(it)
+            setupBadge()
         }
+        binding.basketList.adapter?.notifyDataSetChanged()
     }
 
     private fun deleteItemBasket(item: BasketItems) {
