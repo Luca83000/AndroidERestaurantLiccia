@@ -18,7 +18,7 @@ open class CartAppCompatActivity(@MenuRes private val menuRes: Int) : AppCompatA
         val menuItem = menu!!.findItem(R.id.panier)
 
         val actionView = menuItem.actionView
-        textCartItemCount = actionView.findViewById<View>(R.id.cart_badge) as TextView
+        textCartItemCount = actionView.findViewById<View>(R.id.cartBadge) as TextView
 
         //setupBadge()
 

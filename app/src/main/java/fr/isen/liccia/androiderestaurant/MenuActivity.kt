@@ -2,6 +2,7 @@ package fr.isen.liccia.androiderestaurant
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -9,6 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
@@ -25,6 +27,7 @@ class MenuActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMenuBinding
     private lateinit var monRecycler: RecyclerView
     private var itemsList = ArrayList<Item>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -48,10 +51,25 @@ class MenuActivity : AppCompatActivity() {
             startActivity(intent)
         }
         getDataFromApi(intent.getStringExtra("category") ?: "")
+
+        iniRefreshListener()
     }
 
     companion object {
         const val ITEM_KEY = "item"
+    }
+
+    private fun iniRefreshListener() {
+        val swipeRefreshLayout=findViewById<SwipeRefreshLayout>(R.id.swipe_layout)
+        swipeRefreshLayout.setOnRefreshListener(SwipeRefreshLayout.OnRefreshListener {
+            getDataFromApi(intent.getStringExtra("category") ?: "")
+            val handler = Handler()
+            handler.postDelayed(Runnable {
+                if (swipeRefreshLayout.isRefreshing) {
+                    swipeRefreshLayout.isRefreshing = false
+                }
+            }, 2000)
+        })
     }
 
     private fun getDataFromApi(category: String) {

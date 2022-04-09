@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:clickable="true">
+    android:clickable="true"
+    android:focusable="true">
 
     <ImageView
         android:id="@+id/cart_badge_icon"
@@ -19,17 +20,17 @@
         app:srcCompat="@drawable/ic_shopping" />
 
     <TextView
-        android:id="@+id/cart_badge"
+        android:id="@+id/cartBadge"
         android:layout_width="23dp"
         android:layout_height="21dp"
         android:layout_marginTop="-8dp"
         android:background="@drawable/badge_background"
         android:clickable="true"
-        android:focusable="auto"
+        android:focusable="true"
         android:focusableInTouchMode="true"
         android:gravity="center"
         android:padding="3dp"
-        android:text="@string/default_preview"
+        android:text="@string/cart_badge"
         android:textColor="@android:color/white"
         android:textSize="11sp"
         app:layout_constraintStart_toEndOf="@+id/cart_badge_icon"

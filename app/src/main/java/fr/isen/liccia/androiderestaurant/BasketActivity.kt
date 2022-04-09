@@ -2,8 +2,12 @@ package fr.isen.liccia.androiderestaurant
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
+import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
@@ -12,9 +16,12 @@ import fr.isen.liccia.androiderestaurant.model.Basket
 import fr.isen.liccia.androiderestaurant.model.BasketItems
 import fr.isen.liccia.androiderestaurant.model.CartData
 import java.io.File
+import java.lang.Math.abs
+import java.lang.reflect.Array.getInt
 
 class BasketActivity : AppCompatActivity() {
     private lateinit var binding: ActivityBasketBinding
+    private val itemsList = ArrayList<BasketItems>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,6 +63,16 @@ class BasketActivity : AppCompatActivity() {
             finish()
             changeActivity()
         }
+
+        binding.basketButtonBuy.setOnClickListener {
+            startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://www.linkedin.com/in/luca-liccia/")
+                )
+            )
+        }
+
     }
 
     private fun display(itemsList: List<BasketItems>) {
@@ -95,11 +112,11 @@ class BasketActivity : AppCompatActivity() {
             this.getSharedPreferences(getString(R.string.sp_file_name), Context.MODE_PRIVATE)
 
         val oldQuantity = sharedPreferences.getInt(getString(R.string.sp_total_quantity), 0)
-        val newQuantity = oldQuantity + quantity
+        val newQuantity = oldQuantity - quantity
         sharedPreferences.edit().putInt(getString(R.string.sp_total_quantity), newQuantity).apply()
 
         val oldPrice = sharedPreferences.getFloat(getString(R.string.sp_total_price), 0.0f)
-        val newPrice = oldPrice - price
+        val newPrice = kotlin.math.abs(oldPrice - price)
         sharedPreferences.edit().putFloat(getString(R.string.sp_total_price), newPrice).apply()
     }
 
@@ -108,7 +125,5 @@ class BasketActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    /*public fun getNbItems(cart: CartData): Int =
-        if (cart.items.isNotEmpty()) cart.items.map { it.value }.reduce { acc, amount -> acc + amount } else 0
-    */
+
 }

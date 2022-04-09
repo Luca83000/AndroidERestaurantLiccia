@@ -6,6 +6,7 @@ import android.bluetooth.*
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.InputType
+import android.view.View
 import android.widget.EditText
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -28,9 +29,20 @@ class BLEDeviceActivity : AppCompatActivity() {
         binding = ActivityBledeviceBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val actionBar = supportActionBar
+        actionBar!!.title = "Services et Caractéristiques BLE"
+
         val device = intent.getParcelableExtra<BluetoothDevice>(BLEScanActivity.DEVICE_KEY)
         binding.deviceName.text = device?.name ?: "Nom inconnu"
-        binding.deviceStatus.text = getString(R.string.ble_device_disconnected)
+
+        binding.deviceStatus.text =
+            getString(
+                R.string.ble_device_status,
+                getString(BLEConnexionState.STATE_CONNECTING.text)
+            )
+
+        binding.progressBarService.visibility = View.VISIBLE
+        binding.divider.visibility = View.INVISIBLE
 
         connectToDevice(device)
     }
@@ -40,19 +52,7 @@ class BLEDeviceActivity : AppCompatActivity() {
         device?.connectGatt(this, true, object : BluetoothGattCallback() {
             override fun onConnectionStateChange(gatt: BluetoothGatt?, status: Int, newState: Int) {
                 super.onConnectionStateChange(gatt, status, newState)
-                connectionStateChange(gatt, newState)
-            }
-
-            private fun connectionStateChange(gatt: BluetoothGatt?, newState: Int) {
-                val state = if (newState == BluetoothProfile.STATE_CONNECTED) {
-                    gatt?.discoverServices()
-                    getString(R.string.ble_device_connected)
-                } else {
-                    getString(R.string.ble_device_disconnected)
-                }
-                runOnUiThread {
-                    binding.deviceStatus.text = state
-                }
+                onConnectionStateChange(newState, gatt)
             }
 
             override fun onServicesDiscovered(gatt: BluetoothGatt?, status: Int) {
@@ -60,51 +60,65 @@ class BLEDeviceActivity : AppCompatActivity() {
                 val bleServices =
                     gatt?.services?.map { BLEService(it.uuid.toString(), it.characteristics) }
                         ?: listOf()
-               // val adapter = BleServiceAdapter(applicationContext,
-                 //   bleServices as MutableList<BLEService>, onCharacteristicRead(),writeIntoCharacteristic(),toggleNotificationOnCharacteristic())
+                val adapter = gatt?.services?.map {
+                    BLEService(it.uuid.toString(), it.characteristics)
+                }?.let {
+                    BleServiceAdapter(applicationContext,
+                        it.toMutableList(),
+                        { characteristic ->
+                            gatt.readCharacteristic(characteristic)
+                        },
+                        { characteristic ->
+                            writeIntoCharacteristic(gatt, characteristic)
+                        },
+                        { characteristic, enable ->
+                            toggleNotificationOnCharacteristic(
+                                gatt,
+                                characteristic,
+                                enable
+                            )
+                        })
+                }
                 runOnUiThread {
                     binding.serviceList.layoutManager = LinearLayoutManager(this@BLEDeviceActivity)
                     binding.serviceList.adapter = adapter
+                    binding.serviceList.addItemDecoration(
+                        DividerItemDecoration(
+                            this@BLEDeviceActivity,
+                            LinearLayoutManager.VERTICAL
+                        )
+                    )
                 }
             }
 
+            @SuppressLint("NotifyDataSetChanged")
             override fun onCharacteristicRead(
                 gatt: BluetoothGatt?,
                 characteristic: BluetoothGattCharacteristic?,
                 status: Int
             ) {
                 super.onCharacteristicRead(gatt, characteristic, status)
+                /*runOnUiThread {
+                    adapter.updateFromChangedCharacteristic(characteristic)
+                    adapter.notifyDataSetChanged()
+                }*/
             }
         })
         bluetoothGatt?.connect()
     }
 
     @SuppressLint("MissingPermission")
-    private fun onServicesDiscovered(gatt: BluetoothGatt?) {
-        gatt?.services?.let {
+    private fun onConnectionStateChange(newState: Int, gatt: BluetoothGatt?) {
+        BLEConnexionState.getBLEConnexionStateFromState(newState)?.let {
             runOnUiThread {
-                adapter = BleServiceAdapter(
-                    this,
-                    it.map { service ->
-                        BLEService(service.uuid.toString(), service.characteristics)
-                    }.toMutableList(),
-                    { characteristic -> gatt.readCharacteristic(characteristic) },
-                    { characteristic -> writeIntoCharacteristic(gatt, characteristic) },
-                    { characteristic, enable ->
-                        toggleNotificationOnCharacteristic(
-                            gatt,
-                            characteristic,
-                            enable
-                        )
-                    }
-                )
-                binding.serviceList.adapter = adapter
-                binding.serviceList.addItemDecoration(
-                    DividerItemDecoration(
-                        this@BLEDeviceActivity,
-                        LinearLayoutManager.VERTICAL
-                    )
-                )
+                binding.progressBarService.visibility = View.INVISIBLE
+                binding.divider.visibility = View.VISIBLE
+                binding.deviceStatus.text =
+                    getString(R.string.ble_device_status, getString(it.text))
+            }
+
+            if (it.state == BLEConnexionState.STATE_CONNECTED.state) {
+                gatt?.discoverServices()
             }
         }
     }
@@ -167,6 +181,13 @@ class BLEDeviceActivity : AppCompatActivity() {
 
     @SuppressLint("MissingPermission")
     private fun closeBluetoothGatt() {
+        timer?.cancel()
+        timer = null
+        binding.deviceStatus.text =
+            getString(
+                R.string.ble_device_status,
+                getString(BLEConnexionState.STATE_DISCONNECTED.text)
+            )
         bluetoothGatt?.close()
         bluetoothGatt = null
     }

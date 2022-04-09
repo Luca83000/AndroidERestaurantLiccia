@@ -23,7 +23,7 @@
     <string name="quantity_text">1</string>
     <string name="basket_delete_all_txt">Votre panier a été supprimé</string>
 
-    <string name="default_preview" translatable="false">#</string>
+    <string name="cart_badge" translatable="false">0</string>
 
     <!-- Shared Preferences -->
     <string name="sp_file_name">SharedPreferences</string>
@@ -39,7 +39,17 @@
     <string name="lire">Lire</string>
     <string name="ecrire">Ecrire</string>
     <string name="notifier">Notifier</string>
-    <string name="ble_device_write_characteristic_title">ble_device_write_characteristic_title</string>
-    <string name="ble_device_write_characteristic_confirm">ble_device_write_characteristic_confirm</string>
-    <string name="ble_device_write_characteristic_cancel">ble_device_write_characteristic_cancel</string>
+    <string name="ble_device_write_characteristic_title">Write in this charasteristic</string>
+    <string name="ble_device_write_characteristic_confirm">Valider</string>
+    <string name="ble_device_write_characteristic_cancel">Annuler</string>
+    <string name="nous_rejoindre">Nous rejoindre !</string>
+    <string name="maps_text">Maps</string>
+
+
+    <string name="ble_device_status">Statut : %1$s</string>
+    <string name="ble_device_status_connecting">Connexion en cours</string>
+    <string name="ble_device_status_connected">Connecté</string>
+    <string name="ble_device_status_disconnected">Déconnecté</string>
+    <string name="ble_device_status_disconnecting">Déconnexion en cours</string>
+    <string name="todo">TODO</string>
 </resources>

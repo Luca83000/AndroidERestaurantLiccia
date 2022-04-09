@@ -88,12 +88,13 @@ class DetailsActivity : AppCompatActivity() {
 
         var nbInBucket = 1
         binding.buttonplus.setOnClickListener {
-            changeNumber(item, nbInBucket+1)
+            changeNumber(item, 1)
             nbInBucket += 1
         }
         binding.buttonmoins.setOnClickListener {
-            changeNumber(item, nbInBucket-1)
-            nbInBucket -= 1
+            changeNumber(item, 0)
+            if (nbInBucket==1){}
+            else{nbInBucket -= 1}
         }
         binding.detailTitle.text = item.name_fr
 
@@ -102,7 +103,7 @@ class DetailsActivity : AppCompatActivity() {
 
         binding.buttonPrix.setOnClickListener {
             val snackBar = Snackbar.make(
-                it, "Article ajouté au panier",
+                it, "Article(s) ajouté(s) au panier : " + nbInBucket + " " + binding.detailTitle.text,
                 Snackbar.LENGTH_LONG
             ).setAction("Action", null)
             snackBar.show()
@@ -110,8 +111,8 @@ class DetailsActivity : AppCompatActivity() {
             //Toast.makeText(this, getString(R.string.add_to_basket), Toast.LENGTH_SHORT).show()
             updateFile(BasketItems(item, nbInBucket))
             updateSharedPreferences(nbInBucket, (item.prices[0].price.toFloat() * nbInBucket))
-            finish()
-            changeActivityToBasket()
+            //finish()
+            //changeActivityToBasket()
         }
     }
 

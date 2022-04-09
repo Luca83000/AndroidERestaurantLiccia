@@ -21,6 +21,14 @@
         android:theme="@style/Theme.AndroidERestaurant"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".MapsActivity"
+            android:exported="false" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBKTh_YoxSElj8KMjs9LYpz-WU7BmJ_L-I" />
+
+        <activity
             android:name=".ble.BLEUUIDAttributes"
             android:exported="false"
             tools:ignore="Instantiatable" />

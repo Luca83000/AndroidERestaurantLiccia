@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/textView"
         android:layout_centerInParent="true"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="25dp"
         android:text="@string/button_prix"
         android:textColor="@android:color/white"
         android:textSize="24sp"

@@ -104,7 +104,7 @@ class BleServiceAdapter(
             addPropertyFromCharacteristic(
                 characteristic,
                 properties,
-                "Lecture",
+                "Lire",
                 BluetoothGattCharacteristic.PROPERTY_READ,
                 holder.characteristicReadAction,
                 readCharacteristicCallback
@@ -138,6 +138,7 @@ class BleServiceAdapter(
         }
         characteristic.value?.let {
             val hex = it.joinToString("") { byte -> "%02x".format(byte) }.uppercase(Locale.FRANCE)
+            print("")
             val value = "Valeur : ${String(it)} Hex : 0x$hex"
             if (holder != null) {
                 holder.characteristicValue.visibility = View.VISIBLE
@@ -181,9 +182,9 @@ class BleServiceAdapter(
             }
             if (isNotificationEnable) {
                 propertyAction.setBackgroundColor(ContextCompat.getColor(context, R.color.black))
-                propertyAction.setTextColor(ContextCompat.getColor(context, android.R.color.white))
+                propertyAction.setTextColor(ContextCompat.getColor(context, android.R.color.holo_red_light))
             } else {
-                propertyAction.setBackgroundColor(ContextCompat.getColor(context, android.R.color.transparent))
+                propertyAction.setBackgroundColor(ContextCompat.getColor(context, android.R.color.holo_green_light))
                 propertyAction.setTextColor(ContextCompat.getColor(context, R.color.black))
             }
             propertyAction.setOnClickListener {

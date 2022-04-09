@@ -3,11 +3,15 @@ package fr.isen.liccia.androiderestaurant
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.text.method.LinkMovementMethod
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.TextView
 import android.widget.Toast
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import fr.isen.liccia.androiderestaurant.ble.BLEScanActivity
 import fr.isen.liccia.androiderestaurant.databinding.ActivityHomeBinding
 
@@ -50,8 +54,14 @@ class HomeActivity : AppCompatActivity() {
             goToBluetooth()
             binding.dessertText.movementMethod = LinkMovementMethod.getInstance()
         }
-    }
 
+        binding.mapsText.setOnClickListener {
+            Toast.makeText(this, "Maps", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this,MapsActivity::class.java)
+            startActivity(intent)
+        }
+
+    }
 
     private fun goToHome() {
         val myIntent = Intent(this, MainActivity::class.java)
@@ -101,7 +111,6 @@ class HomeActivity : AppCompatActivity() {
         view.setOnClickListener {
             onOptionsItemSelected(menu)
         }
-
         return true
     }
 
