@@ -21,6 +21,7 @@ class HomeActivity : MenuBaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setupBadge()
         Log.d("HomeActivity", "onCreate Called")
 
         binding = ActivityHomeBinding.inflate(layoutInflater)

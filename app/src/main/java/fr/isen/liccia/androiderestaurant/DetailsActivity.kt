@@ -42,18 +42,13 @@ class DetailsActivity : MenuBaseActivity() {
         val actionBar = supportActionBar
         actionBar!!.title = "Commande"
 
-
         val quantity = getString(R.string.quantity_text)
         binding.quantityText.text = quantity
-
-        val quantity2 = quantity.toInt()
 
         val price = getString(R.string.button_prix)
         binding.buttonPrix.text = price
 
         initDetail(item)
-        //setupBadge(quantity2)
-
     }
 
 
@@ -83,12 +78,9 @@ class DetailsActivity : MenuBaseActivity() {
             }
             .show()
 
-            //Toast.makeText(this, getString(R.string.add_to_basket), Toast.LENGTH_SHORT).show()
             updateFile(BasketItems(item, nbInBucket))
             updateSharedPreferences(nbInBucket, (item.prices[0].price.toFloat() * nbInBucket))
-            //finish()
-            //changeActivityToBasket()
-            setupBadge(nbInBucket)
+            setupBadge()
         }
     }
 
@@ -130,7 +122,6 @@ class DetailsActivity : MenuBaseActivity() {
             if (itemsBasket[i].item == itemBasket.item) {
                 itemsBasket[i].quantity += itemBasket.quantity
                 dupli = true
-                setupBadge(itemBasket.quantity)
             }
         }
 
@@ -152,7 +143,6 @@ class DetailsActivity : MenuBaseActivity() {
         val oldPrice = sharedPreferences.getFloat(getString(R.string.sp_total_price), 0.0f)
         val newPrice = oldPrice + price
         sharedPreferences.edit().putFloat(getString(R.string.sp_total_price), newPrice).apply()
-        setupBadge(newQuantity);
     }
 
 }

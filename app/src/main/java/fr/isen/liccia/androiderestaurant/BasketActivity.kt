@@ -17,9 +17,6 @@ import java.io.File
 class BasketActivity : MenuBaseActivity() {
     private lateinit var binding: ActivityBasketBinding
     private val itemsList = ArrayList<BasketItems>()
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return true
-    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -80,6 +77,7 @@ class BasketActivity : MenuBaseActivity() {
         binding.basketList.adapter = BasketAdapter(itemsList as ArrayList<BasketItems>) {
             deleteItemBasket(it)
         }
+        setupBadge()
         binding.basketList.adapter?.notifyDataSetChanged()
     }
 
@@ -91,9 +89,10 @@ class BasketActivity : MenuBaseActivity() {
             itemBasket = Gson().fromJson(file.readText(), Basket::class.java).data
             itemBasket = itemBasket - item
             updateSharedPreferences(item.quantity, item.item.prices[0].price.toFloat())
-            setupBadge(item.quantity)
+            setupBadge()
         }
 
+        setupBadge()
         file.writeText(Gson().toJson(Basket(itemBasket)))
 
         finish()
@@ -107,8 +106,7 @@ class BasketActivity : MenuBaseActivity() {
         this.getSharedPreferences(getString(R.string.sp_file_name), Context.MODE_PRIVATE).edit()
             .remove(getString(R.string.sp_total_quantity)).apply()
         Toast.makeText(this, getString(R.string.basket_delete_all_txt), Toast.LENGTH_SHORT).show()
-
-        setupBadge(0)
+        setupBadge()
     }
 
     private fun updateSharedPreferences(quantity: Int, price: Float) {
@@ -120,15 +118,14 @@ class BasketActivity : MenuBaseActivity() {
         sharedPreferences.edit().putInt(getString(R.string.sp_total_quantity), newQuantity).apply()
 
         val oldPrice = sharedPreferences.getFloat(getString(R.string.sp_total_price), 0.0f)
-        val newPrice = kotlin.math.abs(oldPrice - price)
+        val newPrice = oldPrice - (quantity * price)
         sharedPreferences.edit().putFloat(getString(R.string.sp_total_price), newPrice).apply()
-        setupBadge(newQuantity)
+
+        setupBadge()
     }
 
     private fun changeActivity() {
         val intent = Intent(this, HomeActivity::class.java)
         startActivity(intent)
     }
-
-
 }

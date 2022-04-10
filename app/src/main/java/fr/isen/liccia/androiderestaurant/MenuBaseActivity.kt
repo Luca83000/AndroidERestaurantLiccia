@@ -18,7 +18,8 @@ open class MenuBaseActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.menu,menu)
         val menuItem = menu!!.findItem(R.id.panier)
         val actionView = menuItem.actionView
-        textCartItemCount = actionView.findViewById<View>(R.id.cartBadge) as TextView
+        textCartItemCount = actionView.findViewById<View>(R.id.cartBadge) as TextView?
+        setupBadge()
         actionView.setOnClickListener { onOptionsItemSelected(menuItem) }
         return super.onCreateOptionsMenu(menu)
     }
@@ -41,18 +42,25 @@ open class MenuBaseActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    protected fun setupBadge(quantityBasket: Int): Int {
+    override fun onResume() {
+        setupBadge()
+        super.onResume()
+    }
+
+    protected fun setupBadge() {
         if (textCartItemCount != null) {
             val quantityBasket = getSharedPreferences(
-                "baskets",
+                getString(R.string.sp_file_name),
                 Context.MODE_PRIVATE
-            ).getInt("nombre total", 0)
+            ).getInt(getString(R.string.sp_total_quantity), 0)
                 textCartItemCount!!.text = java.lang.String.valueOf(quantityBasket.coerceAtMost(99))
-                if (textCartItemCount!!.visibility != View.VISIBLE) {
-                    textCartItemCount!!.visibility = View.VISIBLE
-            }
+                if (quantityBasket >= 99) {
+                    textCartItemCount!!.text = "+99"
+                }
+                if (quantityBasket == 0) {
+                    textCartItemCount!!.text = "0"
+                }
         }
-        return quantityBasket
     }
 
 }

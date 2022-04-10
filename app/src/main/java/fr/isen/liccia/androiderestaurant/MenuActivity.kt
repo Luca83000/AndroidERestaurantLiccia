@@ -53,6 +53,7 @@ class MenuActivity : MenuBaseActivity() {
         getDataFromApi(intent.getStringExtra("category") ?: "")
 
         iniRefreshListener()
+        setupBadge()
     }
 
     companion object {

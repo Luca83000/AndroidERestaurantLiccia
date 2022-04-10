@@ -21,10 +21,10 @@
         android:theme="@style/Theme.AndroidERestaurant"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".CartCompactActivity"
+            android:name=".MapsActivity"
             android:exported="false" />
         <activity
-            android:name=".MapsActivity"
+            android:name=".MenuBaseActivity"
             android:exported="false" />
 
         <meta-data
